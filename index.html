@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0056b3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Checklist diario pre-operacional para retroexcavadora New Holland B90C">
+    <title>Checklist B90C - New Holland</title>
+
+    <!-- Manifest inline (data URL) para PWA installable -->
+    <link rel="manifest" href='data:application/manifest+json,{"name":"Checklist B90C","short_name":"B90C","start_url":".","display":"standalone","background_color":"%23f0f2f5","theme_color":"%230056b3","orientation":"portrait","icons":[{"src":"data:image/svg%2bxml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22><rect width=%22512%22 height=%22512%22 rx=%2280%22 fill=%22%230056b3%22/><text x=%2250%25%22 y=%2262%25%22 font-size=%22320%22 text-anchor=%22middle%22>%F0%9F%9A%9C</text></svg>","sizes":"512x512","type":"image/svg+xml","purpose":"any maskable"}]}'>
+
+    <link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="15" fill="%230056b3"/><text x="50%25" y="62%25" font-size="60" text-anchor="middle">🚜</text></svg>'>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary: #0056b3;
+            --primary-dark: #003d82;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f0f2f5;
+            color: var(--dark);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .logo-text { min-width: 0; }
+
+        .logo-text h1 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .logo-text span {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .icon-btn {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .icon-btn:active { background: rgba(255,255,255,0.3); }
+
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+        }
+
+        .sync-status.online { background: rgba(40, 167, 69, 0.4); }
+        .sync-status.offline { background: rgba(220, 53, 69, 0.4); }
+        .sync-status .pending-count {
+            background: white;
+            color: var(--danger);
+            border-radius: 10px;
+            padding: 0 0.4rem;
+            font-weight: 700;
+            font-size: 0.7rem;
+            margin-left: 0.25rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem;
+            padding-bottom: 110px;
+        }
+
+        /* Install Banner */
+        .install-banner {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .install-banner.show { display: flex; }
+        .install-banner-text { flex: 1; font-size: 0.85rem; }
+        .install-banner-text strong { display: block; margin-bottom: 0.15rem; }
+        .install-banner button {
+            background: white;
+            color: var(--info);
+            border: none;
+            padding: 0.5rem 0.85rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        .install-banner .dismiss {
+            background: transparent;
+            color: white;
+            padding: 0.25rem;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* Operator Info Card */
+        .info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 0.75rem;
+        }
+
+        .form-group:last-child { margin-bottom: 0; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray);
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            -webkit-appearance: none;
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        /* Section Cards */
+        .section {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--light);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #e9ecef;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .section-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .section-progress {
+            font-size: 0.875rem;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .section-progress.complete { color: var(--success); }
+        .section-progress.has-nok { color: var(--danger); }
+
+        .section-content {
+            padding: 0.5rem;
+        }
+
+        .section.collapsed .section-content {
+            display: none;
+        }
+
+        .section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s;
+            color: var(--gray);
+        }
+
+        /* Check Items */
+        .check-item {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            transition: background 0.2s;
+        }
+
+        .check-item:last-child {
+            border-bottom: none;
+        }
+
+        .check-item.critical {
+            border-left: 4px solid var(--danger);
+        }
+
+        .check-item.warning {
+            border-left: 4px solid var(--warning);
+        }
+
+        .check-item.info {
+            border-left: 4px solid var(--info);
+        }
+
+        .check-item-number {
+            min-width: 28px;
+            height: 28px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--gray);
+            margin-top: 2px;
+        }
+
+        .check-item-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .check-item-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 0.65rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-danger { background: #f8d7da; color: #721c24; }
+        .badge-warning { background: #fff3cd; color: #856404; }
+
+        .check-item-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        /* Radio Group */
+        .radio-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .radio-option input { display: none; }
+
+        .radio-option label {
+            display: block;
+            text-align: center;
+            padding: 0.6rem 0.5rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .radio-option input:checked + label.ok {
+            background: var(--success); color: white; border-color: var(--success);
+        }
+        .radio-option input:checked + label.nok {
+            background: var(--danger); color: white; border-color: var(--danger);
+        }
+        .radio-option input:checked + label.na {
+            background: var(--gray); color: white; border-color: var(--gray);
+        }
+
+        /* NOK extras (notes + photo) */
+        .nok-extras {
+            margin-top: 0.75rem;
+            display: none;
+        }
+        .nok-extras.visible { display: block; }
+
+        .notes-input {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            resize: vertical;
+            min-height: 60px;
+            font-family: inherit;
+        }
+
+        .photo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .photo-btn {
+            background: var(--light);
+            border: 2px dashed #ced4da;
+            border-radius: 8px;
+            padding: 0.6rem 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .photo-btn input { display: none; }
+
+        .photo-thumb {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 2px solid var(--success);
+        }
+        .photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .photo-thumb .remove-photo {
+            position: absolute;
+            top: 2px; right: 2px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--danger);
+            color: white;
+            padding: 1rem;
+            z-index: 2000;
+            transform: translateY(-100%);
+            transition: transform 0.3s;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .alert-banner.show { transform: translateY(0); }
+
+        /* Bottom Bar */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 0.75rem;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 1000;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.9rem 0.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            flex: 2;
+        }
+        .btn-primary:active {
+            background: var(--primary-dark);
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+            border: 2px solid #e9ecef;
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 420px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header { padding: 1.5rem 1.5rem 0; }
+        .modal-header h2 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .modal-body { padding: 1rem 1.5rem; font-size: 0.95rem; }
+        .modal-footer {
+            padding: 1rem 1.5rem 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .modal-footer .btn { font-size: 0.85rem; padding: 0.75rem; }
+
+        .alert-list { list-style: none; margin: 0.5rem 0; }
+        .alert-list li {
+            padding: 0.75rem;
+            background: #f8d7da;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border-left: 4px solid var(--danger);
+            font-size: 0.9rem;
+        }
+
+        /* Summary */
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin: 0.75rem 0;
+        }
+
+        .stat-card {
+            background: var(--light);
+            padding: 0.75rem 0.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            margin-top: 0.25rem;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--dark);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            z-index: 4000;
+            opacity: 0;
+            transition: all 0.3s;
+            max-width: 90vw;
+            text-align: center;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* History list */
+        .history-list {
+            max-height: 50vh;
+            overflow-y: auto;
+            margin: 0.5rem 0;
+        }
+        .history-item {
+            padding: 0.75rem;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .history-item-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .history-item-meta {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+        .history-item-summary {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.35rem;
+            font-size: 0.8rem;
+        }
+        .history-item-summary span {
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .history-item-summary .ok { background: #d4edda; color: #155724; }
+        .history-item-summary .nok { background: #f8d7da; color: #721c24; }
+        .history-item-summary .na { background: #e9ecef; color: #6c757d; }
+        .history-item.has-critical {
+            border-left: 4px solid var(--danger);
+        }
+        .history-empty {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--gray);
+        }
+
+        /* Config */
+        .config-form { margin-bottom: 0; }
+        .config-form .form-group { margin-bottom: 1rem; }
+        .help-text {
+            font-size: 0.78rem;
+            color: var(--gray);
+            margin-top: 0.35rem;
+            line-height: 1.4;
+        }
+
+        /* Pulse animation for syncing */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .syncing { animation: pulse 1.5s infinite; }
+
+        /* Responsive */
+        @media (max-width: 380px) {
+            .form-row { grid-template-columns: 1fr; }
+            .radio-group { flex-direction: row; }
+            .radio-option { min-width: 0; }
+            .radio-option label { padding: 0.55rem 0.3rem; font-size: 0.8rem; }
+            .logo-text h1 { font-size: 0.95rem; }
+            .btn { font-size: 0.85rem; }
+        }
+
+        /* Print styles for PDF export fallback */
+        @media print {
+            .header, .bottom-bar, .install-banner, .alert-banner, .toast, .modal-overlay { display: none !important; }
+            body { background: white; }
+            .section { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Alert Banner -->
+    <div class="alert-banner" id="alertBanner">⚠️ Hay items críticos con falla</div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🚜</div>
+                <div class="logo-text">
+                    <h1>New Holland B90C</h1>
+                    <span>Checklist Diario</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="sync-status offline" id="syncStatus">
+                    <span id="syncIcon">📴</span>
+                    <span id="syncText">Offline</span>
+                    <span class="pending-count" id="pendingCount" style="display:none">0</span>
+                </div>
+                <button class="icon-btn" onclick="app.showHistory()" title="Historial" aria-label="Historial">📋</button>
+                <button class="icon-btn" onclick="app.showConfig()" title="Configuración" aria-label="Configuración">⚙️</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Install Prompt Banner -->
+        <div class="install-banner" id="installBanner">
+            <span style="font-size:1.75rem">📱</span>
+            <div class="install-banner-text">
+                <strong>Instalar en tu celular</strong>
+                Usala offline como una app nativa
+            </div>
+            <button onclick="app.promptInstall()">Instalar</button>
+            <button class="dismiss" onclick="app.dismissInstall()" aria-label="Cerrar">×</button>
+        </div>
+
+        <!-- Operator Info -->
+        <div class="info-card">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Operario</label>
+                    <input type="text" class="form-control" id="operatorName" placeholder="Nombre completo" autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label>Legajo</label>
+                    <input type="text" class="form-control" id="operatorId" placeholder="N° de legajo" inputmode="numeric">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Fecha</label>
+                    <input type="date" class="form-control" id="checkDate">
+                </div>
+                <div class="form-group">
+                    <label>Horómetro</label>
+                    <input type="number" class="form-control" id="horometro" placeholder="Hrs" inputmode="decimal" step="0.1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Turno</label>
+                <select class="form-control" id="turno">
+                    <option value="mañana">Mañana</option>
+                    <option value="tarde">Tarde</option>
+                    <option value="noche">Noche</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="checklistContainer"></div>
+
+    </main>
+
+    <!-- Bottom Bar -->
+    <div class="bottom-bar">
+        <button class="btn btn-secondary" onclick="app.resetForm()">Limpiar</button>
+        <button class="btn btn-outline" onclick="app.exportPDF()" title="Exportar para WhatsApp">📄 PDF</button>
+        <button class="btn btn-primary" onclick="app.submitChecklist()">Enviar</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal" id="modalContent"></div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+    'use strict';
+
+    /* ============================================================
+       CHECKLIST DATA — retroexcavadora New Holland B90C
+       ============================================================ */
+    const checklistData = [
+        {
+            id: 'seguridad',
+            title: 'Seguridad y Cabina',
+            icon: '🛡️',
+            items: [
+                { id: 'cinturon', text: 'Cinturón de seguridad', desc: 'Verificar estado, anclajes y funcionamiento del retractor. Debe desenrollarse y retractarse suavemente.', critical: true, category: 'critical' },
+                { id: 'rops', text: 'Estructura ROPS/FOPS', desc: 'Revisar que la estructura de protección esté correctamente instalada, sin fisuras ni deformaciones.', critical: true, category: 'critical' },
+                { id: 'alarmas', text: 'Alarmas de retroceso y bocina', desc: 'Verificar funcionamiento de alarma de retroceso y bocina eléctrica.', critical: true, category: 'critical' },
+                { id: 'extintor', text: 'Extintor y kit de emergencia', desc: 'Verificar presencia, carga vigente y accesibilidad del extintor.', critical: false, category: 'warning' },
+                { id: 'espejos', text: 'Espejos retrovisores', desc: 'Verificar que estén limpios, sin roturas y correctamente ajustados.', critical: false, category: 'info' }
+            ]
+        },
+        {
+            id: 'fluidos',
+            title: 'Niveles de Fluidos',
+            icon: '💧',
+            items: [
+                { id: 'aceite_motor', text: 'Aceite de motor', desc: 'Verificar nivel con motor frío, entre las marcas MIN y MAX del dipstick.', critical: true, category: 'critical' },
+                { id: 'refrigerante', text: 'Líquido refrigerante', desc: 'Verificar nivel en el depósito de expansión. Nunca abrir con motor caliente.', critical: true, category: 'critical' },
+                { id: 'hidraulico', text: 'Aceite hidráulico', desc: 'Verificar nivel en tanque hidráulico con brazos y cuchara apoyados en el suelo.', critical: true, category: 'critical' },
+                { id: 'transmision', text: 'Aceite de transmisión', desc: 'Verificar nivel según indicador o varilla.', critical: true, category: 'critical' },
+                { id: 'combustible', text: 'Nivel de combustible', desc: 'Verificar nivel y reportar si es necesario reabastecer.', critical: false, category: 'warning' },
+                { id: 'fugas', text: 'Fugas visibles', desc: 'Inspeccionar debajo de la máquina por pérdidas de aceite, refrigerante o combustible.', critical: true, category: 'critical' }
+            ]
+        },
+        {
+            id: 'neumaticos',
+            title: 'Neumáticos y Rodado',
+            icon: '⚙️',
+            items: [
+                { id: 'presion', text: 'Presión de neumáticos', desc: 'Verificar visualmente que no estén desinflados. Revisar PSI si hay medidor disponible.', critical: false, category: 'warning' },
+                { id: 'desgaste', text: 'Desgaste y daños', desc: 'Revisar cortes, desgarros, desprendimientos o deformaciones en los neumáticos.', critical: true, category: 'critical' },
+                { id: 'tuercas', text: 'Tuercas y pernos de ruedas', desc: 'Verificar visualmente que no falten tuercas y que no haya marcas de aflojamiento.', critical: true, category: 'critical' }
+            ]
+        },
+        {
+            id: 'sistema_electrico',
+            title: 'Sistema Eléctrico',
+            icon: '⚡',
+            items: [
+                { id: 'bateria', text: 'Batería y conexiones', desc: 'Verificar que las bornes estén limpias, ajustadas y sin corrosión.', critical: false, category: 'warning' },
+                { id: 'luces', text: 'Luces y señalización', desc: 'Verificar luces altas, bajas, direccionales, de freno y de trabajo.', critical: true, category: 'critical' },
+                { id: 'limpia_parabrisas', text: 'Limpia parabrisas', desc: 'Verificar funcionamiento y estado de las escobillas.', critical: false, category: 'info' }
+            ]
+        },
+        {
+            id: 'implementos',
+            title: 'Implementos y Acoples',
+            icon: '🔧',
+            items: [
+                { id: 'cuchara', text: 'Cuchara trasera y dientes', desc: 'Verificar estado de la cuchara, dientes, pasadores y bulones de seguridad.', critical: true, category: 'critical' },
+                { id: 'brazos', text: 'Brazos y cilindros hidráulicos', desc: 'Revisar fugas en cilindros, estado de varillas y guardapolvos.', critical: true, category: 'critical' },
+                { id: 'acoples', text: 'Acoples rápidos', desc: 'Verificar funcionamiento y seguridad de acoples de implementos.', critical: true, category: 'critical' },
+                { id: 'estabilizadores', text: 'Estabilizadores', desc: 'Verificar funcionamiento hidráulico y estado de las zapatas.', critical: true, category: 'critical' }
+            ]
+        },
+        {
+            id: 'frenos',
+            title: 'Frenos y Dirección',
+            icon: '🛑',
+            items: [
+                { id: 'freno_servicio', text: 'Freno de servicio', desc: 'Verificar eficiencia de frenado y recorrido del pedal.', critical: true, category: 'critical' },
+                { id: 'freno_estacionamiento', text: 'Freno de estacionamiento', desc: 'Verificar que mantenga la máquina detenida en pendiente.', critical: true, category: 'critical' },
+                { id: 'direccion', text: 'Dirección', desc: 'Verificar que no tenga juego excesivo y responda correctamente.', critical: true, category: 'critical' }
+            ]
+        }
+    ];
+
+    /* ============================================================
+       APP STATE
+       ============================================================ */
+    const STORAGE_KEYS = {
+        data: 'b90c_checklist_data',
+        history: 'b90c_history',
+        pending: 'b90c_pending',
+        config: 'b90c_config',
+        installDismissed: 'b90c_install_dismissed'
+    };
+
+    const app = window.app = {
+        data: {},
+        photos: {},  // itemId -> base64 dataURL
+        config: { googleScriptUrl: '' },
+        deferredInstallPrompt: null,
+
+        /* ---------- INIT ---------- */
+        init() {
+            this.loadConfig();
+            this.loadData();
+            document.getElementById('checkDate').valueAsDate = new Date();
+            this.restoreOperatorFields();
+            this.renderChecklist();
+            this.setupNetworkListener();
+            this.setupInstallPrompt();
+            this.setupOperatorFieldPersistence();
+            this.syncPending();
+            this.updatePendingCount();
+        },
+
+        loadConfig() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEYS.config);
+                if (saved) Object.assign(this.config, JSON.parse(saved));
+            } catch (e) { console.warn('Config corrupto', e); }
+            // Legacy migration
+            const legacyUrl = localStorage.getItem('googleScriptUrl');
+            if (legacyUrl && !this.config.googleScriptUrl) {
+                this.config.googleScriptUrl = legacyUrl;
+                this.saveConfig();
+            }
+        },
+
+        saveConfig() {
+            localStorage.setItem(STORAGE_KEYS.config, JSON.stringify(this.config));
+        },
+
+        loadData() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEYS.data);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    this.data = parsed.data || {};
+                    this.photos = parsed.photos || {};
+                }
+            } catch (e) {
+                console.warn('Data corrupta, reseteando', e);
+                this.data = {};
+                this.photos = {};
+            }
+        },
+
+        saveData() {
+            localStorage.setItem(STORAGE_KEYS.data, JSON.stringify({
+                data: this.data,
+                photos: this.photos
+            }));
+        },
+
+        restoreOperatorFields() {
+            const saved = localStorage.getItem('b90c_operator_fields');
+            if (!saved) return;
+            try {
+                const f = JSON.parse(saved);
+                if (f.operatorName) document.getElementById('operatorName').value = f.operatorName;
+                if (f.operatorId) document.getElementById('operatorId').value = f.operatorId;
+                if (f.turno) document.getElementById('turno').value = f.turno;
+            } catch (e) {}
+        },
+
+        setupOperatorFieldPersistence() {
+            const save = () => {
+                localStorage.setItem('b90c_operator_fields', JSON.stringify({
+                    operatorName: document.getElementById('operatorName').value,
+                    operatorId: document.getElementById('operatorId').value,
+                    turno: document.getElementById('turno').value
+                }));
+            };
+            ['operatorName', 'operatorId', 'turno'].forEach(id => {
+                document.getElementById(id).addEventListener('change', save);
+            });
+        },
+
+        /* ---------- RENDER ---------- */
+        renderChecklist() {
+            const container = document.getElementById('checklistContainer');
+            container.innerHTML = '';
+
+            checklistData.forEach((section, sIndex) => {
+                const sectionEl = document.createElement('div');
+                sectionEl.className = 'section';
+                sectionEl.dataset.sectionId = section.id;
+
+                sectionEl.innerHTML = `
+                    <div class="section-header" onclick="app.toggleSection(this)">
+                        <div class="section-title">
+                            <div class="section-icon">${section.icon}</div>
+                            <span>${section.title}</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:0.5rem;">
+                            <span class="section-progress">0/${section.items.length}</span>
+                            <svg class="toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="section-content">
+                        ${section.items.map((item, iIndex) => this.renderItem(item, iIndex)).join('')}
+                    </div>
+                `;
+
+                container.appendChild(sectionEl);
+            });
+
+            this.updateProgress();
+            this.checkAlerts();
+        },
+
+        renderItem(item, iIndex) {
+            const value = this.data[item.id];
+            const notes = this.data[`${item.id}_notes`] || '';
+            const photo = this.photos[item.id];
+            const showExtras = value === 'nok';
+            const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+            return `
+                <div class="check-item ${item.category}" data-item-id="${item.id}">
+                    <div class="check-item-number">${iIndex + 1}</div>
+                    <div class="check-item-content">
+                        <div class="check-item-title">
+                            ${esc(item.text)}
+                            ${item.critical ? '<span class="badge badge-danger">Crítico</span>' : ''}
+                        </div>
+                        <div class="check-item-desc">${esc(item.desc)}</div>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="${item.id}" id="${item.id}_ok" value="ok" ${value === 'ok' ? 'checked' : ''} onchange="app.setValue('${item.id}', 'ok')">
+                                <label for="${item.id}_ok" class="ok">✓ OK</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="${item.id}" id="${item.id}_nok" value="nok" ${value === 'nok' ? 'checked' : ''} onchange="app.setValue('${item.id}', 'nok')">
+                                <label for="${item.id}_nok" class="nok">✗ No OK</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="${item.id}" id="${item.id}_na" value="na" ${value === 'na' ? 'checked' : ''} onchange="app.setValue('${item.id}', 'na')">
+                                <label for="${item.id}_na" class="na">N/A</label>
+                            </div>
+                        </div>
+                        <div class="nok-extras ${showExtras ? 'visible' : ''}" id="extras_${item.id}">
+                            <textarea class="notes-input" id="notes_${item.id}"
+                                placeholder="Describa la falla encontrada..."
+                                oninput="app.setNotes('${item.id}', this.value)">${esc(notes)}</textarea>
+                            <div class="photo-section">
+                                <label class="photo-btn">
+                                    📷 ${photo ? 'Cambiar foto' : 'Agregar foto (opcional)'}
+                                    <input type="file" accept="image/*" capture="environment"
+                                        onchange="app.setPhoto('${item.id}', this.files[0])">
+                                </label>
+                                ${photo ? `
+                                    <div class="photo-thumb">
+                                        <img src="${photo}" alt="Foto de falla">
+                                        <button class="remove-photo" onclick="app.removePhoto('${item.id}')" aria-label="Quitar">×</button>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        },
+
+        toggleSection(header) {
+            header.parentElement.classList.toggle('collapsed');
+        },
+
+        /* ---------- USER INPUT ---------- */
+        setValue(itemId, value) {
+            this.data[itemId] = value;
+
+            const extrasEl = document.getElementById(`extras_${itemId}`);
+            if (extrasEl) extrasEl.classList.toggle('visible', value === 'nok');
+
+            if (value !== 'nok') {
+                delete this.data[`${itemId}_notes`];
+                delete this.photos[itemId];
+                // Re-render just this item to remove photo thumb if any
+                const itemEl = document.querySelector(`[data-item-id="${itemId}"]`);
+                if (itemEl) {
+                    const photoSection = itemEl.querySelector('.photo-section');
+                    if (photoSection) {
+                        photoSection.innerHTML = `
+                            <label class="photo-btn">
+                                📷 Agregar foto (opcional)
+                                <input type="file" accept="image/*" capture="environment"
+                                    onchange="app.setPhoto('${itemId}', this.files[0])">
+                            </label>
+                        `;
+                    }
+                }
+            }
+
+            this.updateProgress();
+            this.checkAlerts();
+            this.saveData();
+
+            if (value === 'nok') this.showToast('⚠️ Describí la falla y, si podés, agregá foto');
+        },
+
+        setNotes(itemId, notes) {
+            if (notes.trim()) this.data[`${itemId}_notes`] = notes;
+            else delete this.data[`${itemId}_notes`];
+            this.saveData();
+        },
+
+        async setPhoto(itemId, file) {
+            if (!file) return;
+            try {
+                this.showToast('📷 Procesando foto...');
+                const dataUrl = await this.compressImage(file, 1024, 0.7);
+                this.photos[itemId] = dataUrl;
+                this.saveData();
+                // Re-render the item to show thumb
+                const itemEl = document.querySelector(`[data-item-id="${itemId}"]`);
+                if (itemEl) {
+                    const ps = itemEl.querySelector('.photo-section');
+                    ps.innerHTML = `
+                        <label class="photo-btn">
+                            📷 Cambiar foto
+                            <input type="file" accept="image/*" capture="environment"
+                                onchange="app.setPhoto('${itemId}', this.files[0])">
+                        </label>
+                        <div class="photo-thumb">
+                            <img src="${dataUrl}" alt="Foto de falla">
+                            <button class="remove-photo" onclick="app.removePhoto('${itemId}')" aria-label="Quitar">×</button>
+                        </div>
+                    `;
+                }
+                this.showToast('✅ Foto agregada');
+            } catch (e) {
+                console.error(e);
+                this.showToast('❌ Error al procesar la foto');
+            }
+        },
+
+        removePhoto(itemId) {
+            delete this.photos[itemId];
+            this.saveData();
+            const itemEl = document.querySelector(`[data-item-id="${itemId}"]`);
+            if (itemEl) {
+                const ps = itemEl.querySelector('.photo-section');
+                ps.innerHTML = `
+                    <label class="photo-btn">
+                        📷 Agregar foto (opcional)
+                        <input type="file" accept="image/*" capture="environment"
+                            onchange="app.setPhoto('${itemId}', this.files[0])">
+                    </label>
+                `;
+            }
+        },
+
+        compressImage(file, maxSize = 1024, quality = 0.7) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        let { width, height } = img;
+                        if (width > maxSize || height > maxSize) {
+                            if (width > height) {
+                                height = (height * maxSize) / width;
+                                width = maxSize;
+                            } else {
+                                width = (width * maxSize) / height;
+                                height = maxSize;
+                            }
+                        }
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.onerror = reject;
+                    img.src = e.target.result;
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        },
+
+        /* ---------- PROGRESS & ALERTS ---------- */
+        updateProgress() {
+            checklistData.forEach(section => {
+                const sectionEl = document.querySelector(`[data-section-id="${section.id}"]`);
+                if (!sectionEl) return;
+                const completed = section.items.filter(it => this.data[it.id]).length;
+                const hasNok = section.items.some(it => this.data[it.id] === 'nok');
+                const total = section.items.length;
+                const progressEl = sectionEl.querySelector('.section-progress');
+                progressEl.textContent = `${completed}/${total}`;
+                progressEl.classList.toggle('complete', completed === total && !hasNok);
+                progressEl.classList.toggle('has-nok', hasNok);
+            });
+        },
+
+        checkAlerts() {
+            const criticalNok = [];
+            checklistData.forEach(section => {
+                section.items.forEach(item => {
+                    if (item.critical && this.data[item.id] === 'nok') {
+                        criticalNok.push(`${section.icon} ${item.text}`);
+                    }
+                });
+            });
+
+            const banner = document.getElementById('alertBanner');
+            if (criticalNok.length > 0) {
+                banner.textContent = `⚠️ ${criticalNok.length} item(s) crítico(s) con falla — NO OPERAR`;
+                banner.classList.add('show');
+            } else {
+                banner.classList.remove('show');
+            }
+            return criticalNok;
+        },
+
+        /* ---------- VALIDATION ---------- */
+        validate() {
+            const errors = [];
+            if (!document.getElementById('operatorName').value.trim()) errors.push('Debe ingresar el nombre del operario');
+            if (!document.getElementById('horometro').value) errors.push('Debe ingresar el horómetro');
+
+            let unanswered = 0, nokWithoutNotes = 0;
+            checklistData.forEach(section => {
+                section.items.forEach(item => {
+                    if (!this.data[item.id]) unanswered++;
+                    if (this.data[item.id] === 'nok' && !this.data[`${item.id}_notes`]) nokWithoutNotes++;
+                });
+            });
+            if (unanswered > 0) errors.push(`Faltan ${unanswered} item(s) por revisar`);
+            if (nokWithoutNotes > 0) errors.push(`${nokWithoutNotes} falla(s) sin descripción`);
+
+            return { valid: errors.length === 0, errors };
+        },
+
+        /* ---------- SUBMIT ---------- */
+        async submitChecklist() {
+            const validation = this.validate();
+            if (!validation.valid) {
+                this.showModal('error', '❌ Error de validación',
+                    '<ul class="alert-list">' + validation.errors.map(e => `<li>${e}</li>`).join('') + '</ul>');
+                return;
+            }
+
+            const critical = this.checkAlerts();
+            if (critical.length > 0) {
+                this.showModal('critical', '⚠️ Alerta crítica',
+                    `Se encontraron <strong>${critical.length} falla(s) crítica(s)</strong>:
+                     <ul class="alert-list">${critical.map(a => `<li>${a}</li>`).join('')}</ul>
+                     <strong>La máquina NO debe operarse hasta solucionar las fallas críticas.</strong>`,
+                    { showForceSubmit: true });
+                return;
+            }
+
+            const report = this.buildReport();
+            await this.sendReport(report);
+        },
+
+        buildReport() {
+            const report = {
+                timestamp: new Date().toISOString(),
+                operator: document.getElementById('operatorName').value.trim(),
+                operatorId: document.getElementById('operatorId').value.trim(),
+                date: document.getElementById('checkDate').value,
+                horometro: document.getElementById('horometro').value,
+                turno: document.getElementById('turno').value,
+                machine: 'New Holland B90C',
+                items: [],
+                photos: {},
+                summary: { ok: 0, nok: 0, na: 0, total: 0, criticalNok: 0 }
+            };
+
+            checklistData.forEach(section => {
+                section.items.forEach(item => {
+                    const value = this.data[item.id];
+                    const notes = this.data[`${item.id}_notes`] || '';
+                    const photo = this.photos[item.id];
+                    report.items.push({
+                        id: item.id,
+                        section: section.title,
+                        item: item.text,
+                        critical: item.critical,
+                        result: value,
+                        notes,
+                        hasPhoto: !!photo
+                    });
+                    if (photo) report.photos[item.id] = photo;
+                    if (value) report.summary[value]++;
+                    report.summary.total++;
+                    if (item.critical && value === 'nok') report.summary.criticalNok++;
+                });
+            });
+
+            return report;
+        },
+
+        async sendReport(report) {
+            this.saveToHistory(report);
+
+            if (!this.config.googleScriptUrl) {
+                this.queueForSync(report);
+                this.showModal('warning', '⚠️ Sin configurar',
+                    'No hay URL de Google Apps Script configurada. El reporte quedó guardado localmente.<br><br>' +
+                    'Tocá el engranaje ⚙️ para configurarla.',
+                    { resetOnClose: true });
+                return;
+            }
+
+            if (!navigator.onLine) {
+                this.queueForSync(report);
+                this.showModal('warning', '📴 Sin conexión',
+                    'El reporte se guardó localmente y se enviará automáticamente cuando recuperes conexión.',
+                    { resetOnClose: true });
+                return;
+            }
+
+            this.showToast('📡 Enviando...');
+            try {
+                const resp = await fetch(this.config.googleScriptUrl, {
+                    method: 'POST',
+                    // text/plain evita preflight CORS que GAS no soporta
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(report),
+                    redirect: 'follow'
+                });
+                const text = await resp.text();
+                let json;
+                try { json = JSON.parse(text); } catch { json = { success: resp.ok }; }
+
+                if (json.success) {
+                    this.showSuccessModal(report);
+                } else {
+                    throw new Error(json.error || 'Respuesta inválida del servidor');
+                }
+            } catch (e) {
+                console.error('Error enviando reporte:', e);
+                this.queueForSync(report);
+                this.showModal('warning', '⚠️ Error al enviar',
+                    `No se pudo sincronizar con Google Sheets. El reporte se guardó localmente y se reintentará automáticamente.<br><br>` +
+                    `<small style="color:var(--gray)">Detalle: ${e.message}</small>`,
+                    { resetOnClose: true });
+            }
+        },
+
+        showSuccessModal(report) {
+            this.showModal('success', '✅ Reporte enviado', `
+                <p>El checklist se registró correctamente.</p>
+                <div class="summary-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" style="color:var(--success)">${report.summary.ok}</div>
+                        <div class="stat-label">OK</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" style="color:var(--danger)">${report.summary.nok}</div>
+                        <div class="stat-label">No OK</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" style="color:var(--gray)">${report.summary.na}</div>
+                        <div class="stat-label">N/A</div>
+                    </div>
+                </div>
+            `, { resetOnClose: true });
+        },
+
+        /* ---------- OFFLINE QUEUE ---------- */
+        saveToHistory(report) {
+            const hist = JSON.parse(localStorage.getItem(STORAGE_KEYS.history) || '[]');
+            hist.push(report);
+            localStorage.setItem(STORAGE_KEYS.history, JSON.stringify(hist.slice(-50)));
+        },
+
+        queueForSync(report) {
+            const pending = JSON.parse(localStorage.getItem(STORAGE_KEYS.pending) || '[]');
+            pending.push(report);
+            localStorage.setItem(STORAGE_KEYS.pending, JSON.stringify(pending));
+            this.updatePendingCount();
+        },
+
+        updatePendingCount() {
+            const pending = JSON.parse(localStorage.getItem(STORAGE_KEYS.pending) || '[]');
+            const el = document.getElementById('pendingCount');
+            if (pending.length > 0) {
+                el.textContent = pending.length;
+                el.style.display = 'inline-block';
+            } else {
+                el.style.display = 'none';
+            }
+        },
+
+        async syncPending() {
+            const pending = JSON.parse(localStorage.getItem(STORAGE_KEYS.pending) || '[]');
+            if (pending.length === 0 || !navigator.onLine || !this.config.googleScriptUrl) return;
+
+            document.getElementById('syncStatus').classList.add('syncing');
+            const remaining = [];
+            let synced = 0;
+
+            for (const report of pending) {
+                try {
+                    const resp = await fetch(this.config.googleScriptUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify(report),
+                        redirect: 'follow'
+                    });
+                    const text = await resp.text();
+                    let json;
+                    try { json = JSON.parse(text); } catch { json = { success: resp.ok }; }
+                    if (json.success) synced++;
+                    else remaining.push(report);
+                } catch (e) {
+                    remaining.push(report);
+                }
+            }
+
+            localStorage.setItem(STORAGE_KEYS.pending, JSON.stringify(remaining));
+            document.getElementById('syncStatus').classList.remove('syncing');
+            this.updatePendingCount();
+            if (synced > 0) this.showToast(`✅ ${synced} reporte(s) sincronizado(s)`);
+        },
+
+        /* ---------- NETWORK ---------- */
+        setupNetworkListener() {
+            const update = () => {
+                const statusEl = document.getElementById('syncStatus');
+                const icon = document.getElementById('syncIcon');
+                const text = document.getElementById('syncText');
+                if (navigator.onLine) {
+                    statusEl.className = 'sync-status online';
+                    icon.textContent = '📶';
+                    text.textContent = 'Online';
+                    this.syncPending();
+                } else {
+                    statusEl.className = 'sync-status offline';
+                    icon.textContent = '📴';
+                    text.textContent = 'Offline';
+                }
+            };
+            window.addEventListener('online', update);
+            window.addEventListener('offline', update);
+            update();
+        },
+
+        /* ---------- PWA INSTALL ---------- */
+        setupInstallPrompt() {
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                this.deferredInstallPrompt = e;
+                if (!localStorage.getItem(STORAGE_KEYS.installDismissed)) {
+                    document.getElementById('installBanner').classList.add('show');
+                }
+            });
+            window.addEventListener('appinstalled', () => {
+                document.getElementById('installBanner').classList.remove('show');
+                this.showToast('✅ App instalada');
+            });
+        },
+
+        async promptInstall() {
+            if (!this.deferredInstallPrompt) {
+                this.showToast('Abrí el menú del navegador y elegí "Instalar app"');
+                return;
+            }
+            this.deferredInstallPrompt.prompt();
+            const choice = await this.deferredInstallPrompt.userChoice;
+            if (choice.outcome === 'accepted') {
+                document.getElementById('installBanner').classList.remove('show');
+            }
+            this.deferredInstallPrompt = null;
+        },
+
+        dismissInstall() {
+            localStorage.setItem(STORAGE_KEYS.installDismissed, '1');
+            document.getElementById('installBanner').classList.remove('show');
+        },
+
+        /* ---------- EXPORT ---------- */
+        exportPDF() {
+            const validation = this.validate();
+            if (!validation.valid) {
+                this.showModal('error', '❌ Checklist incompleto',
+                    'Completá el checklist antes de exportar:<ul class="alert-list">' +
+                    validation.errors.map(e => `<li>${e}</li>`).join('') + '</ul>');
+                return;
+            }
+            const report = this.buildReport();
+            const html = this.buildPrintableHTML(report);
+            const w = window.open('', '_blank');
+            if (!w) {
+                this.showToast('❌ Permitir ventanas emergentes para exportar');
+                return;
+            }
+            w.document.open();
+            w.document.write(html);
+            w.document.close();
+            // Disparar print tras render
+            setTimeout(() => { try { w.print(); } catch (e) {} }, 500);
+        },
+
+        buildPrintableHTML(report) {
+            const esc = (s) => String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+            const resultLabel = { ok: '✓ OK', nok: '✗ NO OK', na: 'N/A' };
+            const resultColor = { ok: '#28a745', nok: '#dc3545', na: '#6c757d' };
+
+            const bySection = {};
+            report.items.forEach(it => {
+                if (!bySection[it.section]) bySection[it.section] = [];
+                bySection[it.section].push(it);
+            });
+
+            const sectionsHTML = Object.entries(bySection).map(([secTitle, items]) => `
+                <div class="sec">
+                    <h3>${esc(secTitle)}</h3>
+                    <table>
+                        <tr><th style="width:40%">Ítem</th><th style="width:15%">Resultado</th><th>Notas / Foto</th></tr>
+                        ${items.map(it => `
+                            <tr>
+                                <td>${esc(it.item)}${it.critical ? ' <span style="color:#dc3545;font-weight:bold">★</span>' : ''}</td>
+                                <td style="color:${resultColor[it.result]};font-weight:bold">${resultLabel[it.result]}</td>
+                                <td>
+                                    ${esc(it.notes)}
+                                    ${report.photos[it.id] ? `<br><img src="${report.photos[it.id]}" style="max-width:200px;max-height:150px;margin-top:4px;border:1px solid #ccc">` : ''}
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </table>
+                </div>
+            `).join('');
+
+            return `<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Checklist B90C - ${esc(report.date)} - ${esc(report.operator)}</title>
+<style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; padding: 20px; color: #333; max-width: 800px; margin: 0 auto; }
+    h1 { color: #0056b3; margin-bottom: 0.25rem; }
+    .subtitle { color: #666; margin-bottom: 1rem; }
+    .meta { background: #f8f9fa; padding: 12px; border-radius: 6px; margin-bottom: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1rem; font-size: 14px; }
+    .meta div strong { color: #0056b3; }
+    .summary { display: flex; gap: 8px; margin-bottom: 1rem; }
+    .summary div { flex: 1; padding: 10px; border-radius: 6px; text-align: center; font-weight: bold; }
+    .sum-ok { background: #d4edda; color: #155724; }
+    .sum-nok { background: #f8d7da; color: #721c24; }
+    .sum-na { background: #e9ecef; color: #495057; }
+    .critical-alert { background: #dc3545; color: white; padding: 10px; border-radius: 6px; margin-bottom: 1rem; font-weight: bold; }
+    .sec { margin-bottom: 1rem; page-break-inside: avoid; }
+    .sec h3 { color: #0056b3; border-bottom: 2px solid #0056b3; padding-bottom: 4px; margin-bottom: 6px; font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th { background: #0056b3; color: white; text-align: left; padding: 6px; }
+    td { padding: 6px; border-bottom: 1px solid #ddd; vertical-align: top; }
+    .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: 11px; color: #666; text-align: center; }
+    @media print { body { padding: 10mm; } }
+</style></head><body>
+    <h1>🚜 Checklist Diario — New Holland B90C</h1>
+    <div class="subtitle">Inspección pre-operacional</div>
+    <div class="meta">
+        <div><strong>Operario:</strong> ${esc(report.operator)}</div>
+        <div><strong>Legajo:</strong> ${esc(report.operatorId) || '—'}</div>
+        <div><strong>Fecha:</strong> ${esc(report.date)}</div>
+        <div><strong>Turno:</strong> ${esc(report.turno)}</div>
+        <div><strong>Horómetro:</strong> ${esc(report.horometro)} hs</div>
+        <div><strong>Generado:</strong> ${new Date(report.timestamp).toLocaleString('es-AR')}</div>
+    </div>
+    ${report.summary.criticalNok > 0 ? `<div class="critical-alert">⚠️ ${report.summary.criticalNok} FALLA(S) CRÍTICA(S) — NO OPERAR</div>` : ''}
+    <div class="summary">
+        <div class="sum-ok">OK: ${report.summary.ok}</div>
+        <div class="sum-nok">NO OK: ${report.summary.nok}</div>
+        <div class="sum-na">N/A: ${report.summary.na}</div>
+    </div>
+    ${sectionsHTML}
+    <div class="footer">Checklist B90C · ${new Date().toLocaleDateString('es-AR')} · ★ = ítem crítico</div>
+</body></html>`;
+        },
+
+        /* ---------- HISTORY ---------- */
+        showHistory() {
+            const hist = JSON.parse(localStorage.getItem(STORAGE_KEYS.history) || '[]').slice().reverse();
+            const pending = JSON.parse(localStorage.getItem(STORAGE_KEYS.pending) || '[]');
+            const pendingIds = new Set(pending.map(p => p.timestamp));
+
+            const body = hist.length === 0
+                ? '<div class="history-empty">No hay reportes guardados todavía.</div>'
+                : `<div class="history-list">
+                    ${hist.map(r => {
+                        const d = new Date(r.timestamp);
+                        const isPending = pendingIds.has(r.timestamp);
+                        return `
+                        <div class="history-item ${r.summary.criticalNok > 0 ? 'has-critical' : ''}">
+                            <div class="history-item-header">
+                                <span>${d.toLocaleDateString('es-AR')} ${d.toLocaleTimeString('es-AR', {hour:'2-digit', minute:'2-digit'})}</span>
+                                <span style="color:${isPending ? 'var(--warning)' : 'var(--success)'};font-size:0.75rem;">
+                                    ${isPending ? '⏳ Pendiente' : '✓ Enviado'}
+                                </span>
+                            </div>
+                            <div class="history-item-meta">
+                                ${r.operator} · ${r.horometro}hs · ${r.turno}
+                            </div>
+                            <div class="history-item-summary">
+                                <span class="ok">OK ${r.summary.ok}</span>
+                                <span class="nok">NOK ${r.summary.nok}</span>
+                                <span class="na">N/A ${r.summary.na}</span>
+                                ${r.summary.criticalNok > 0 ? `<span class="nok">⚠️ ${r.summary.criticalNok} crítico(s)</span>` : ''}
+                            </div>
+                        </div>`;
+                    }).join('')}
+                </div>
+                <div style="text-align:center; font-size:0.8rem; color:var(--gray); margin-top:0.5rem;">
+                    Últimos ${hist.length} reportes (máx. 50)
+                </div>`;
+
+            this.showModal('info', '📋 Historial', body);
+        },
+
+        /* ---------- CONFIG ---------- */
+        showConfig() {
+            const body = `
+                <div class="config-form">
+                    <div class="form-group">
+                        <label>URL de Google Apps Script</label>
+                        <input type="url" class="form-control" id="cfgUrl"
+                            value="${this.config.googleScriptUrl || ''}"
+                            placeholder="https://script.google.com/macros/s/.../exec">
+                        <div class="help-text">
+                            La URL de tu Web App deployado. Termina en <code>/exec</code>.<br>
+                            Ver instrucciones de deploy en el archivo Code.gs.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Diagnóstico</label>
+                        <button type="button" class="btn btn-outline" onclick="app.testConnection()" style="width:100%;text-transform:none;font-size:0.85rem;padding:0.6rem;">
+                            🔌 Probar conexión
+                        </button>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0">
+                        <label>Datos locales</label>
+                        <button type="button" class="btn btn-secondary" onclick="app.clearAllData()" style="width:100%;text-transform:none;font-size:0.85rem;padding:0.6rem;">
+                            🗑️ Borrar todo (reportes e historial)
+                        </button>
+                    </div>
+                </div>
+            `;
+            this.showModal('info', '⚙️ Configuración', body, { showSaveConfig: true });
+        },
+
+        saveConfigFromModal() {
+            const url = document.getElementById('cfgUrl').value.trim();
+            this.config.googleScriptUrl = url;
+            this.saveConfig();
+            this.closeModal();
+            this.showToast('✅ Configuración guardada');
+            if (url && navigator.onLine) this.syncPending();
+        },
+
+        async testConnection() {
+            const url = document.getElementById('cfgUrl').value.trim();
+            if (!url) { this.showToast('Ingresá una URL primero'); return; }
+            this.showToast('🔌 Probando conexión...');
+            try {
+                const resp = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ ping: true }),
+                    redirect: 'follow'
+                });
+                const text = await resp.text();
+                if (resp.ok) this.showToast('✅ Conexión OK: ' + text.slice(0, 80));
+                else this.showToast('⚠️ Respuesta HTTP ' + resp.status);
+            } catch (e) {
+                this.showToast('❌ Error: ' + e.message);
+            }
+        },
+
+        clearAllData() {
+            if (!confirm('¿Borrar TODOS los datos locales? (historial, pendientes, configuración)')) return;
+            Object.values(STORAGE_KEYS).forEach(k => localStorage.removeItem(k));
+            localStorage.removeItem('b90c_operator_fields');
+            localStorage.removeItem('googleScriptUrl');
+            this.data = {};
+            this.photos = {};
+            this.config = { googleScriptUrl: '' };
+            this.closeModal();
+            this.showToast('🗑️ Datos borrados');
+            setTimeout(() => location.reload(), 500);
+        },
+
+        /* ---------- RESET ---------- */
+        resetForm() {
+            if (!confirm('¿Limpiar el formulario? Se perderán los datos no enviados.')) return;
+            this.data = {};
+            this.photos = {};
+            localStorage.removeItem(STORAGE_KEYS.data);
+            document.getElementById('horometro').value = '';
+            document.getElementById('checkDate').valueAsDate = new Date();
+            this.renderChecklist();
+            this.showToast('Formulario limpiado');
+        },
+
+        /* ---------- MODAL ---------- */
+        showModal(type, title, content, opts = {}) {
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+
+            let buttons = '';
+            if (opts.showSaveConfig) {
+                buttons = `
+                    <button class="btn btn-secondary" onclick="app.closeModal()">Cancelar</button>
+                    <button class="btn btn-primary" onclick="app.saveConfigFromModal()">Guardar</button>
+                `;
+            } else if (opts.showForceSubmit) {
+                buttons = `
+                    <button class="btn btn-secondary" onclick="app.closeModal()">Revisar</button>
+                    <button class="btn btn-primary" onclick="app.forceSubmit()" style="background:var(--danger)">Enviar igual</button>
+                `;
+            } else if (opts.resetOnClose) {
+                buttons = `<button class="btn btn-primary" onclick="app.closeModal(); app.resetFormSilent();" style="flex:1">Aceptar</button>`;
+            } else {
+                buttons = `<button class="btn btn-primary" onclick="app.closeModal()" style="flex:1">Aceptar</button>`;
+            }
+
+            modalContent.innerHTML = `
+                <div class="modal-header"><h2>${title}</h2></div>
+                <div class="modal-body">${content}</div>
+                <div class="modal-footer">${buttons}</div>
+            `;
+            modal.classList.add('active');
+        },
+
+        closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        },
+
+        forceSubmit() {
+            this.closeModal();
+            const report = this.buildReport();
+            this.sendReport(report);
+        },
+
+        resetFormSilent() {
+            this.data = {};
+            this.photos = {};
+            localStorage.removeItem(STORAGE_KEYS.data);
+            document.getElementById('horometro').value = '';
+            document.getElementById('checkDate').valueAsDate = new Date();
+            this.renderChecklist();
+        },
+
+        /* ---------- TOAST ---------- */
+        showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(this._toastTimer);
+            this._toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    };
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => app.init());
+
+    // Service Worker: usar Blob URL (las data: URLs están bloqueadas por spec)
+    if ('serviceWorker' in navigator) {
+        const swCode = `
+            const CACHE = 'b90c-v1';
+            self.addEventListener('install', e => self.skipWaiting());
+            self.addEventListener('activate', e => e.waitUntil(clients.claim()));
+            self.addEventListener('fetch', e => {
+                if (e.request.method !== 'GET') return;
+                // Network-first para navegación, cache fallback
+                e.respondWith(
+                    fetch(e.request)
+                        .then(resp => {
+                            const copy = resp.clone();
+                            caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});
+                            return resp;
+                        })
+                        .catch(() => caches.match(e.request).then(r => r || caches.match('/')))
+                );
+            });
+        `;
+        const blob = new Blob([swCode], { type: 'application/javascript' });
+        const swUrl = URL.createObjectURL(blob);
+        // Intento registrar; si falla (ej. file://) no rompe nada
+        navigator.serviceWorker.register(swUrl).catch(() => {
+            console.log('SW no registrado (probablemente servida desde file://)');
+        });
+    }
+    </script>
+</body>
+</html>
